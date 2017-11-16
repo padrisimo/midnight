@@ -1,0 +1,11 @@
+{
+  "name": "midnight",
+  "version": "1.0.0",
+  "description": "mindnight express passengers list",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adrian Fernandez Chamizo",
+  "license": "ISC"
+}
