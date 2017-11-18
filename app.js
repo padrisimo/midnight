@@ -42,6 +42,10 @@ app.get('/', function(req, res){
     });
 })
 
+app.post('/user/add', function(req, res){
+    console.log(req.body.first_name);
+});
+
 app.listen(3000, function(){
     console.log("Train departs from platform 3000")
 })
