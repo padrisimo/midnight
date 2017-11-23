@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var expressValidator = require('express-validator');
+var mongojs = require('mongojs');
+var db = mongojs('customerapp', ['users']);
 
 var app = express();
 
@@ -39,33 +41,13 @@ app.use(expressValidator({
     }
 }));
 
-
-var users = [
-    {
-        id:1,
-        first_name: 'Manolo',
-        last_name: 'Escobar',
-        email: 'escobar@gmail.com'
-    },
-    {
-        id:2,
-        first_name: 'Pedro',
-        last_name: 'Picapiedra',
-        email: 'rocadura@gmail.com'
-    },
-    {
-        id:1,
-        first_name: 'Lola',
-        last_name: 'Flores',
-        email: 'simequereisirsen@gmail.com'
-    }
-]
-
 app.get('/', function(req, res){
-    res.render('index', {
-        title: 'Passengers',
-        users: users
-    });
+    db.users.find(function(err, docs){
+        res.render('index', {
+            title: 'Passengers',
+            users: docs
+        });
+    })
 })
 
 app.post('/user/add', function(req, res){
