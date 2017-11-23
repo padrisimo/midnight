@@ -18,19 +18,19 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Gobal Vars
-app.use(function(re, res, next) {
+app.use(function (re, res, next) {
     res.locals.errors = null;
     next();
 })
 
 // Express Validator Middleware
 app.use(expressValidator({
-    errorFormatter: function(param, msg, value) {
+    errorFormatter: function (param, msg, value) {
         var namespace = param.split('.');
         var root = namespace.shift();
-        var formParam  = root;
+        var formParam = root;
 
-        while(namespace.length){
+        while (namespace.length) {
             formParam += '[' + namespace.shift() + ']';
         }
         return {
@@ -41,44 +41,44 @@ app.use(expressValidator({
     }
 }));
 
-app.get('/', function(req, res){
-    db.users.find(function(err, docs){
+app.get('/', function (req, res) {
+    db.users.find(function (err, docs) {
         res.render('index', {
             title: 'Passengers',
             users: docs
         });
     })
 })
-
-app.post('/user/add', function(req, res){
+app.post('/user/add', function (req, res) {
 
     req.checkBody('first_name', 'First Name is Required').notEmpty();
     req.checkBody('last_name', 'Last Name is Required, ya tu sabeh').notEmpty();
     req.checkBody('email', 'Email Name is Required').notEmpty();
 
     var errors = req.validationErrors();
-
-    if(errors){
-        res.render('index', {
-            title: 'Passengers',
-            users: users,
-            errors: errors
-        });
-    } else {
-        var newUser = {
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-        }
-        db.users.insert(newUser, function(err, result) {
-            if(err){
-                console.log(err);
+    db.users.find(function (err, users) {
+        if (errors) {
+            res.render('index', {
+                title: 'Passengers',
+                users: users,
+                errors: errors
+            });
+        } else {
+            var newUser = {
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email,
             }
-            res.redirect('/');
-        });
-    }
+            db.users.insert(newUser, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                res.redirect('/');
+            });
+        }
+    })
 });
 
-app.listen(3000, function(){
+app.listen(3000, function () {
     console.log("Train departs from platform 3000")
 })
