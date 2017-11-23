@@ -70,7 +70,12 @@ app.post('/user/add', function(req, res){
             last_name: req.body.last_name,
             email: req.body.email,
         }
-        console.log('ou yeaH, success!!!');
+        db.users.insert(newUser, function(err, result) {
+            if(err){
+                console.log(err);
+            }
+            res.redirect('/');
+        });
     }
 });
 
