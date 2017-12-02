@@ -23,7 +23,7 @@
     <h1 class="mt-2"><%= title %></h1>
     <ul class="list-group">
     <% users.forEach(function(user){ %>
-        <li class="list-group-item justify-content-between"><span><%= user.first_name %> <%= user.last_name %></span> <a class="btn btn-danger btn-sm pb-0 pt-0 pl-1 pr-1 float-right" href="#"><i class="fa fa-trash-o"></i></a></li>
+        <li  class="list-group-item justify-content-between"><%= user.first_name %> <%= user.last_name %><a data-id="<%= user._id %>" class="btn btn-danger delete_user btn-sm pb-0 pt-0 pl-1 pr-1 float-right" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
     <% }) %>
     </ul>
 <% include partials/footer %>
