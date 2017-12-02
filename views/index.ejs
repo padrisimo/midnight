@@ -21,9 +21,9 @@
         <input type="submit" value="submit" class="btn">
     </form>
     <h1 class="mt-2"><%= title %></h1>
-    <ul>
+    <ul class="list-group">
     <% users.forEach(function(user){ %>
-        <li><%= user.first_name %> <%= user.last_name %></li>
+        <li class="list-group-item justify-content-between"><span><%= user.first_name %> <%= user.last_name %></span> <a class="btn btn-danger btn-sm pb-0 pt-0 pl-1 pr-1 float-right" href="#"><i class="fa fa-trash-o"></i></a></li>
     <% }) %>
     </ul>
 <% include partials/footer %>
